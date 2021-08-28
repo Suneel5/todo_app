@@ -1,25 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from .forms import todoform
-#from .models import todo
-
+from .models import task
+from django.views.generic.edit import UpdateView
 # Create your views here.
 
 def home(request):
-    titles =['learn this','learn that','dont waste times']
-    # titles=todo.objects.all()
-    #print(titles)
-    # if request.method == 'POST':
-    #     todo_form=todoform(request.POST)
-    #     if todo_form.is_valid():
-    #         #todo_form.save()
-    #         return HttpResponse('todo added')
-    # else:
-    #     todo_form=todoform()
-    form=todoform()
-    print(form)  
+    taskes=task.objects.all()
+    if request.method == 'POST':
+        todo_form=todoform(request.POST)
+        if todo_form.is_valid():
+            todo_form.save()
+            return redirect('home')
+    else:
+        todo_form=todoform()
 
-    context={'titles': titles,'form': form}
-
+    context={'taskes': taskes,'form': todo_form}
     return render(request,'home.html',context)
+
 

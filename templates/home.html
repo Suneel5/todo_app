@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo App</title>
     
@@ -10,17 +9,19 @@
 <body>
 
     <h1>ToDo List</h1>
+
     <ul>
-        {% for title in titles %}
-            <li> {{ title }} </li>
+        {% for task in taskes %}
+            <li> {{ task.title }} ------------- {{task.date_created}}</li>
         {% endfor %}        
     </ul>
 
-    <form method="post" action={% url 'home' %}>
+    <form method="post" action={% url "home" %}>
         {% csrf_token %}   
         {{ form }}
         <br>
         <input type="submit" value="Add to todo"> 
     </form>
+    
 </body>
 </html>
