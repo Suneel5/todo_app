@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from .forms import todoform
 from .models import task
+from django.views.generic.edit import UpdateView
 # Create your views here.
 
 def home(request):
@@ -14,9 +15,7 @@ def home(request):
     else:
         todo_form=todoform()
 
-
-
     context={'taskes': taskes,'form': todo_form}
-
     return render(request,'home.html',context)
+
 
