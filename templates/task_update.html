@@ -1,0 +1,30 @@
+
+{% extends ./base.html %}
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo update</title>
+
+</head>
+<body> -->
+
+{% block content %}
+<form method="post" action=''>
+    
+    {{form}}
+    <br><br>
+    {%csrf_token%}
+    <input type='submit' value='Update'>
+</form>
+
+{%if messages%}
+    {%for message in messages%}
+        <h2>{{message}}</h2>
+    {%endfor%}
+{%endif%}
+
+{% endblock %}
+<!-- </body>
+</html> -->
