@@ -42,31 +42,7 @@
       </nav>
 
     {% block content %}
-    <h1>ToDo List</h1>
-    {%if messages%}
-        {%for message in messages%}
-            <p>{{message}}</p>
-        {%endfor%}
-    {%endif%}
-
-    <form  method="post" action={% url "home" %}>
-        {% csrf_token %}  
-        <fieldset class="form-group">
-        {{ form|crispy }}
-        </fieldset> 
-        <input class="btn btn-success mx-4 mt-2" type="submit" value="Add to todo"> 
-    </form>
-    <br>
-    <ul classes="list-group list-group-flush">
-        {% for task in taskes %}
-            <li class=list-group-item> {{ task.title }} <a href={% url "update" task.id %}>Edit</a> 
-                                            <a href={% url "delete" task.id %}>Delete</a>  
-                {%if task.completed %}
-                 tick
-                {% endif %}
-            </li>
-        {% endfor %}        
-    </ul>
+    
     {% endblock %}
     
     
