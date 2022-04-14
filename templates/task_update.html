@@ -1,30 +1,24 @@
 
-{% extends ./base.html %}
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Todo update</title>
-
-</head>
-<body> -->
+{% extends './base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<form method="post" action=''>
-    
-    {{form}}
-    <br><br>
+
+<form class  method="post" action=''>
     {%csrf_token%}
-    <input type='submit' value='Update'>
+    <br>
+    <div class="form-group mx-5 ">
+        {{ form|crispy }}
+    </div>
+    <br>
+   
+    <input class="btn btn-outline-success mx-5" type='submit' value='Update'>
 </form>
 
-{%if messages%}
+<!-- {%if messages%}
     {%for message in messages%}
         <h2>{{message}}</h2>
     {%endfor%}
-{%endif%}
+{%endif%} -->
 
 {% endblock %}
-<!-- </body>
-</html> -->

@@ -1,74 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <title>ToDo App</title>
-    
-</head>
-<body>
+{% extends './base.html' %}
+{% load crispy_forms_tags %}
 
-    {% load crispy_forms_tags %}
+{% block content %}
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Todo </a>
-            </li>
-            
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-            </li>
-            
-            {% else %}
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Login</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Register</a>
-            </li>
-            {% endif %}
-            
-          </ul>
-          
-        </div>
-      </nav>
+<!-- <style>
 
-    {% block content %}
-    <h1>ToDo List</h1>
-    {%if messages%}
-        {%for message in messages%}
-            <p>{{message}}</p>
-        {%endfor%}
-    {%endif%}
+    body {
+        font-size: 20px;
+    }
 
-    <form  method="post" action={% url "home" %}>
-        {% csrf_token %}  
-        <fieldset class="form-group">
-        {{ form|crispy }}
-        </fieldset> 
-        <input class="btn btn-success mx-4 mt-2" type="submit" value="Add to todo"> 
+    .list-group {
+        margin:auto;
+    width: 100px;
+    clear:right;
+
+
+    }
+
+    .nobr {
+        white-space: nowrap
+    }
+
+    .task {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+    }
+
+    .links {}
+
+
+    ul {
+        list-style-type: none;
+    }
+</style> -->
+
+<div class="container">
+    <!-- <h2>ToDo List</h2> -->
+
+    <!-- {%if messages%}
+    {%for message in messages%}
+    <p>{{message}}</p>
+    {%endfor%}
+    {%endif%} -->
+
+    <form method="post" action={% url "home" %}>
+        {% csrf_token %}
+        <fieldset class="form-group mt-2 mx-5 w-25">
+            {{ form|crispy }}
+        </fieldset>
+        <input class="btn btn-outline-primary mx-5 mt-2" type="submit" value="Add to todo">
     </form>
     <br>
-    <ul classes="list-group list-group-flush">
+    <ul classes="list-group">
         {% for task in taskes %}
-            <li class=list-group-item> {{ task.title }} <a href={% url "update" task.id %}>Edit</a> 
-                                            <a href={% url "delete" task.id %}>Delete</a>  
-                {%if task.completed %}
-                 tick
-                {% endif %}
-            </li>
-        {% endfor %}        
+        <!-- list-group-item w-50 -->
+        <li class="list-group-item w-50 ">
+            <div class="task">
+                <div class="task-inf">
+                    {%if task.completed %}
+                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." checked>
+                    {%else%}
+                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                    {% endif %}
+                    <span class="title">{{ task.title }} </span>
+                </div>
+                <div class="links">
+                    <a class="btn btn-outline-primary" href={% url "update" task.id %}>Edit</a>
+                    <a class="btn btn-outline-danger" href={% url "delete" task.id %}>Delete</a>
+                </div>
+            </div>
+
+        </li>
+
+        {% endfor %}
     </ul>
-    {% endblock %}
-    
-    
-</body>
-</html>
+</div>
+
+
+{% endblock %}

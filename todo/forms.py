@@ -7,4 +7,8 @@ class todoform(forms.ModelForm):
         model=task
         fields=['title']
 
+        widgets={
+            'title': forms.TextInput(attrs={'class':'form-control '})
+        }
+
     
