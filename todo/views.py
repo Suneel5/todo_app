@@ -23,12 +23,13 @@ class taskCreateView(LoginRequiredMixin,SuccessMessageMixin,CreateView):
 
         if form.is_valid():
             # form.cleaned_data['user']=request.user.id
-            print(form.cleaned_data)
+            # print(form.cleaned_data)
             post=form.save()
             post.user=request.user
             post.save()
             return HttpResponseRedirect(reverse_lazy('home'))
         return render(request, 'home.html', {'form': form})
+        
 class taskUpdateView(LoginRequiredMixin,SuccessMessageMixin,UpdateView):
 
     model = task
@@ -41,6 +42,7 @@ class taskUpdateView(LoginRequiredMixin,SuccessMessageMixin,UpdateView):
 # class taskDeleteView(DeleteView):
 #     model = task
 #     success_url = reverse_lazy('home')
+
 @login_required
 def delete_task(request,pk):
     task.objects.get(id=pk).delete()
